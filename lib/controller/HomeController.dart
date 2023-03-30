@@ -179,7 +179,7 @@ class HomeController extends GetxController {
                 height: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(image: NetworkImage('https://image.tmdb.org/t/p/w500/${e.posterPath!}'), fit: BoxFit.fill),
+                  image: DecorationImage(image: NetworkImage('https://image.tmdb.org/t/p/w500/${e.backdropPath!}'), fit: BoxFit.fill),
                 ),
               ),
             ),

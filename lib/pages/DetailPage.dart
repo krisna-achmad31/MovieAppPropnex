@@ -281,7 +281,7 @@ class DetailPage extends StatelessWidget {
                                         ),
                                       )
                                     : detailPageController.cat == 'Movie'
-                                        ? Container(
+                                        ? detailPageController.emptyData.value ? Container() : Container(
                                             height: 243,
                                             child: ListView.builder(
                                               scrollDirection: Axis.horizontal,
@@ -291,7 +291,7 @@ class DetailPage extends StatelessWidget {
                                               itemCount: detailPageController.itemPerPage,
                                             ),
                                           )
-                                        : Container(
+                                        : detailPageController.emptyData.value ? Container() : Container(
                                             height: 243,
                                             child: ListView.builder(
                                               scrollDirection: Axis.horizontal,
@@ -316,7 +316,13 @@ class DetailPage extends StatelessWidget {
     return Row(children: [
       InkWell(
         onTap: () {
-          detailPageController.getInfoMovie(id);
+          print(cat);
+          if(cat == 'Movie'){
+            detailPageController.getInfoMovie(id);
+          } else {
+            detailPageController.getInfoTv(id);
+          }
+
         },
         child: Stack(
           children: [

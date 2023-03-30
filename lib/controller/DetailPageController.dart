@@ -30,6 +30,7 @@ class DetailPageController extends GetxController {
   var itemPerPage = 5;
 
   var loadingData = false.obs;
+  var emptyData = false.obs;
 
   List<movieResponses.Results> movieResult = [];
   List<tvResponses.Results> tvResult = [];
@@ -44,7 +45,7 @@ class DetailPageController extends GetxController {
     if (cat == 'Movie') {
       getInfoMovie(id);
     } else {
-      getInfoTv();
+      getInfoTv(id);
     }
 
     super.onInit();
@@ -58,11 +59,9 @@ class DetailPageController extends GetxController {
       poster = detailMovieResponse.posterPath!;
       background = detailMovieResponse.backdropPath!;
       tittle = detailMovieResponse.title!;
-      if (detailMovieResponse.genres!.length != 0) {
-        genre = detailMovieResponse.genres![0].name!;
-      } else {
+      if(detailMovieResponse.genres!.isEmpty){
         genre = ' ';
-      }
+      } else genre =  detailMovieResponse.genres![0].name!;
       language = detailMovieResponse.originalLanguage!;
       year = detailMovieResponse.releaseDate!;
       summary = detailMovieResponse.overview!;
@@ -80,14 +79,17 @@ class DetailPageController extends GetxController {
     }
   }
 
-  void getInfoTv() async {
+  void getInfoTv(String id) async {
     loadingData(true);
     try {
       detailTv.DetailTvResponse detailTvResponse = await MovieRepository().getDetailTv(id);
+
       poster = detailTvResponse.posterPath!;
       background = detailTvResponse.backdropPath!;
       tittle = detailTvResponse.name!;
-      genre = detailTvResponse.genres![0].name!;
+      if(detailTvResponse.genres!.isEmpty){
+        genre = ' ';
+      } else genre =  detailTvResponse.genres![0].name!;
       language = detailTvResponse.originalLanguage!;
       year = detailTvResponse.firstAirDate!;
       summary = detailTvResponse.overview!;
@@ -108,6 +110,10 @@ class DetailPageController extends GetxController {
     try {
       movieResponses.SearchMovieResponse searchMovieResponse = await MovieRepository().searchMovie(keyword);
       movieResult = searchMovieResponse.results!;
+      if(searchMovieResponse.totalResults == 0){
+        print('Empty');
+        emptyData(true);
+      }
       await loadingData(false);
     } catch (e, stacktrace) {
       print(e);
@@ -120,6 +126,10 @@ class DetailPageController extends GetxController {
     try {
       tvResponses.SearchTvResponse searchTvResponse = await MovieRepository().searchTv(keyword);
       tvResult = searchTvResponse.results!;
+      if(searchTvResponse.totalResults == 0){
+        print('Empty');
+        emptyData(true);
+      }
       await loadingData(false);
     } catch (e, stacktrace) {
       print(e);

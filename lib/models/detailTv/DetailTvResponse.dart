@@ -247,7 +247,7 @@ class DetailTvResponse {
     map['first_air_date'] = _firstAirDate;
     if (_genres != null) {
       map['genres'] = _genres?.map((v) => v.toJson()).toList();
-    }
+    } else map['genres'] = ' ';
     map['homepage'] = _homepage;
     map['id'] = _id;
     map['in_production'] = _inProduction;
