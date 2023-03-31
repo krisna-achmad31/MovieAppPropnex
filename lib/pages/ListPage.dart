@@ -92,7 +92,7 @@ class ListPage extends StatelessWidget {
                                           listPageController.itemTvOnTheAir[index].name!,
                                           listPageController.itemTvOnTheAir[index].firstAirDate!,
                                           listPageController.itemTvOnTheAir[index].id!.toString(),
-                                          'Movie',
+                                          'Tv',
                                         );
                                       }),
                                   onEndOfPage: () {
@@ -110,7 +110,7 @@ class ListPage extends StatelessWidget {
                                           listPageController.itemTvPopular[index].name!,
                                           listPageController.itemTvPopular[index].firstAirDate!,
                                           listPageController.itemTvPopular[index].id!.toString(),
-                                          'Movie',
+                                          'Tv',
                                         );
                                       }),
                                   onEndOfPage: () {

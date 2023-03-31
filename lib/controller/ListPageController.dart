@@ -81,7 +81,7 @@ class ListPageController extends GetxController {
     loadingDataNow(true);
     try {
       nowPlaying.NowPlayingResponse nowPlayingResponse = await MovieRepository().getListNowPlaying(page.toString());
-      if (nowPlayingResponse.totalResults != 0) {
+      if (nowPlayingResponse.results.isEmpty) {
         lastPage.value = true;
       } else {
         total = nowPlayingResponse.results.length;
@@ -119,7 +119,7 @@ class ListPageController extends GetxController {
     loadingDataNow(true);
     try {
       tvOnTheAir.TvOnTheAirResponse tvOnTheAirResponse = await MovieRepository().getListTvOnTheAir(page.toString());
-      if (tvOnTheAirResponse.totalResults != 0) {
+      if (tvOnTheAirResponse.results!.isEmpty) {
         lastPage.value = true;
       } else {
         total = tvOnTheAirResponse.results!.length;
@@ -139,7 +139,7 @@ class ListPageController extends GetxController {
     loadingDataNow(true);
     try {
       tvPopular.TvPopularResponse tvPopularResponse = await MovieRepository().getListTvPopular(page.toString());
-      if (tvPopularResponse.totalResults != 0) {
+      if (tvPopularResponse.results!.isEmpty) {
         lastPage.value = true;
       } else {
         total = tvPopularResponse.results!.length;
@@ -156,6 +156,7 @@ class ListPageController extends GetxController {
   }
 
   void moveToDetail(String id, String cat) {
+    print('$id $cat');
     Get.toNamed(DetailPage.routedName, arguments: [
       {'id': '$id'},
       {'cat': '$cat'},
